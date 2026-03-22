@@ -91,7 +91,7 @@ Remove any messages whose IDs are already present as keys in `.processed.json`'s
 
 ### Step 6: If no new messages
 
-Write a brief `~/development/gmail-digest/digest.md` noting:
+Write a brief `~/development/gmail-digest/digests/YYYY-MM-DD-HHmm.md` noting:
 
 ```
 No new emails since last check at [last_run timestamp, or "the beginning" if null].
@@ -167,7 +167,7 @@ Nothing is sent automatically. All suggestions are advisory only.
 
 ### Step 10: Generate digest
 
-Write `~/development/gmail-digest/digest.md` using an atomic write (write to `digest.md.tmp`, then rename to `digest.md`).
+Write to `~/development/gmail-digest/digests/YYYY-MM-DD-HHmm.md` using an atomic write (write to `.tmp` first, then rename). The filename uses the current local date and time (e.g., `2026-03-22-0700.md` for the 7am run). This preserves a history of digests rather than overwriting.
 
 The digest has three layers:
 
@@ -224,7 +224,7 @@ One section per label in `config.labels` order, followed by Other Inbox. Omit a 
 
 ---
 
-The digest shows only the current batch and replaces any previous digest.
+The digest shows only the current batch. Each run creates a new file; previous digests are preserved.
 
 ### Step 11: Save processed state
 
@@ -234,7 +234,7 @@ Write updated `.processed.json` using atomic write (write to `.processed.json.tm
 
 Tell the user:
 - How many emails were fetched in total and per label/source.
-- Where the digest file is (`~/development/gmail-digest/digest.md`).
+- Where the digest file is (`~/development/gmail-digest/digests/YYYY-MM-DD-HHmm.md`).
 - How many require action, how many are delegatable, how many are FYI.
 
 ## Error Handling
@@ -245,4 +245,4 @@ Tell the user:
 - **Malformed .processed.json**: Report the error. Recreate with `{"last_run": null, "processed": {}}` and continue.
 - **No unread messages**: Write brief digest noting no new mail since last check. Update `last_run`. Stop.
 - **File write failure**: Report error for that specific file, skip the message, continue with remaining messages.
-- **Atomic writes**: All writes to `.processed.json` and `digest.md` must go through a `.tmp` file first, then rename. Message files in `messages/` also use atomic writes.
+- **Atomic writes**: All writes to `.processed.json` and digest files must go through a `.tmp` file first, then rename. Message files in `messages/` also use atomic writes.

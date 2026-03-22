@@ -3,6 +3,7 @@
 
 # Output files (generated, not source)
 digest.md
+digests/
 summary.md
 messages/
 

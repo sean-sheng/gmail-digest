@@ -6,14 +6,15 @@ set -euo pipefail
 
 PROJECT_DIR="$HOME/development/gmail-digest"
 CLAUDE_BIN="${CLAUDE_BIN:-$(which claude 2>/dev/null || echo "/usr/local/bin/claude")}"
-DIGEST="$PROJECT_DIR/digest.md"
+DIGESTS_DIR="$PROJECT_DIR/digests"
 
 # Run the digest skill
 "$CLAUDE_BIN" -p "/gmail-digest"
 
-# Extract the summary line from digest.md for the notification body
-if [[ -f "$DIGEST" ]]; then
-  summary=$(head -3 "$DIGEST" | tail -1)
+# Find the most recent digest file for the notification body
+LATEST=$(ls -t "$DIGESTS_DIR"/*.md 2>/dev/null | head -1)
+if [[ -n "$LATEST" ]]; then
+  summary=$(head -3 "$LATEST" | tail -1)
   osascript -e "display notification \"$summary\" with title \"Gmail Digest Ready\" sound name \"Glass\""
 else
   osascript -e 'display notification "Digest completed but file not found" with title "Gmail Digest" sound name "Basso"'

@@ -21,19 +21,6 @@ for arg in "$@"; do
 done
 
 # Read schedule and timezone from config.json
-read_config() {
-  python3 - <<'EOF'
-import json, sys
-with open(sys.argv[1]) as f:
-    c = json.load(f)
-schedule = c.get("schedule", ["07:00", "13:00"])
-timezone = c.get("timezone", "America/Los_Angeles")
-morning_h, morning_m   = schedule[0].split(":")
-afternoon_h, afternoon_m = schedule[1].split(":")
-print(f"{morning_h} {morning_m} {afternoon_h} {afternoon_m} {timezone}")
-EOF
-}
-
 parse_config() {
   local result
   result=$(python3 -c "
@@ -176,7 +163,8 @@ main() {
         || launchctl unload "$plist_path" 2>/dev/null \
         || true
     fi
-    launchctl load "$plist_path"
+    launchctl bootstrap "gui/$uid" "$plist_path" 2>/dev/null \
+      || launchctl load "$plist_path"
     echo "Loaded: $label"
   done
 

@@ -1,0 +1,7 @@
+{
+  "labels": ["@action now", "Calendar"],
+  "exclude_patterns": ["notifications@github.com", "noreply@", "[bot]"],
+  "max_results": 50,
+  "schedule": ["07:00", "13:00"],
+  "timezone": "America/Los_Angeles"
+}

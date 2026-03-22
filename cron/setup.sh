@@ -53,9 +53,7 @@ generate_plist() {
 
     <key>ProgramArguments</key>
     <array>
-        <string>${CLAUDE_BIN}</string>
-        <string>-p</string>
-        <string>/gmail-digest</string>
+        <string>${PROJECT_DIR}/cron/run-digest.sh</string>
     </array>
 
     <key>WorkingDirectory</key>
@@ -77,6 +75,8 @@ generate_plist() {
         <string>/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$(dirname "$CLAUDE_BIN")</string>
         <key>HOME</key>
         <string>${HOME}</string>
+        <key>CLAUDE_BIN</key>
+        <string>${CLAUDE_BIN}</string>
     </dict>
 
     <key>StandardOutPath</key>

@@ -1,0 +1,19 @@
+# Processed state
+.processed.json
+
+# Output files (generated, not source)
+digest.md
+summary.md
+messages/
+
+# OS
+.DS_Store
+
+# Claude
+.claude/
+
+# Temporary files
+*.tmp
+
+# Logs
+cron/logs/

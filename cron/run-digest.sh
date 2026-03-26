@@ -6,7 +6,7 @@ set -euo pipefail
 
 PROJECT_DIR="$HOME/development/gmail-digest"
 CLAUDE_BIN="${CLAUDE_BIN:-$(which claude 2>/dev/null || echo "/usr/local/bin/claude")}"
-DIGESTS_DIR="$PROJECT_DIR/digests"
+DIGESTS_DIR="$PROJECT_DIR/output/digests"
 
 # Run the digest skill
 "$CLAUDE_BIN" -p "/gmail-digest"

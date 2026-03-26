@@ -1,10 +1,13 @@
 # Processed state
 .processed.json
 
-# Output files (generated, not source)
+# Output (generated, not source)
+output/
 digest.md
-digests/
 summary.md
+
+# Legacy output dirs (pre-restructure)
+digests/
 messages/
 
 # OS
